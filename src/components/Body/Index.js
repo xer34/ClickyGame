@@ -1,8 +1,8 @@
 import React from "react";
 import "./style.css";
-import Wrapper from "./Wrapper/index";
-import Card from "./Card/index";
-import imageData from "../imageData";
+import Wrapper from "../Wrapper/index";
+import Card from "../Card/index";
+import imageData from "../../imageData";
 
 class Index extends React.Component {
   constructor() {
@@ -10,39 +10,68 @@ class Index extends React.Component {
     this.state = {
       score: 0,
       highScore: 0,
-      clicked: false
+      clicked: []
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-    // alert(this.state.clicked)
-    this.setState(prevState => {
-      if (!this.state.clicked) {
-        return {
-          score: prevState.score + 1,
-          highScore: prevState.highScore + 1,
-          clicked: true
-        };
-      } else
-        return {
-          score: 0,
-          highScore: this.state.score
-        };
+
+  // Fisher Yates Shuffle --------- //
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  // ------------------------------ //
+    
+  resetGame() {
+    this.shuffle(imageData)
+    this.setState({
+      score: 0,
+      clicked: []
     });
   }
+
+    // ------------------------------ //
+
+  handleClick(id) {
+    if (this.state.clicked.indexOf(id) === -1) {
+      this.shuffle(imageData)
+      this.setState(prevState => {
+        return {
+          score: prevState.score + 1,
+          highScore: prevState.score + 1,
+          clicked: this.state.clicked.concat(id)
+        };
+      });
+    } else {
+      alert("Sorry, you lose!")
+      this.resetGame();
+      this.setState(() => {
+        return {
+          score: 0,
+          highScore: this.state.score,
+          clicked: []
+        };
+      });
+    }
+  }
+
+    // ------------------------------ //
 
   render() {
     const imageDataArray = imageData.map(imageData => (
       <Card
-        id={imageData.id}
+        key={imageData.id}
         url={imageData.url}
         onClick={this.handleClick}
-        isClicked={imageData.clicked}
+        id={imageData.id}
       />
     ));
 
-    return (
+        return (
       <div className="container">
         <nav className="navbar navbar-dark ">
           <h1>ClickyGame!</h1>
