@@ -1,0 +1,28 @@
+body {
+    background-color: rgb(39, 39, 39);
+    color: whitesmoke;
+}
+
+.jumbotron {
+    background-color: rgb(104, 104, 104);
+    color: whitesmoke;
+    height: 200px;
+    width: 1048px;
+}
+
+.jumboText {
+    text-align: center;
+    background-color: rgb(102, 102, 102);
+    color: whitesmoke;
+}
+
+.score {
+    color: red;
+}
+.navbar {
+    background-color: rgb(49, 49, 49);
+    position: fixed;
+    top: 0;
+    width: 1048px;
+    z-index: 1;
+}
