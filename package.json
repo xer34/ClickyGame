@@ -8,7 +8,7 @@
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.3"
   },
-  "homepage": "https://xer34.github.io/ClickyGame",
+  "homepage": "https://xer34.github.io/Clickygame",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
